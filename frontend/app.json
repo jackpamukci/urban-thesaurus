@@ -1,0 +1,34 @@
+{
+  "expo": {
+    "name": "Urban Thesaurus",
+    "slug": "urbanthesaurus",
+    "description": "A thesaurus version of the popular Urban Dictionary",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/urbanthesaurus.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/urbanthesaurus.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/urbanthesaurus.png",
+        "backgroundColor": "#FFFFFF"
+      }
+    },
+    "web": {
+      "favicon": "./assets/urbanthesaurus.png"
+    }
+  }
+}
