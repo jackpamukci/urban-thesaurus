@@ -2,6 +2,22 @@ import requests
 from urban import urba
 
 
+def justthewords(search):
+    url = "https://thesaurus-by-api-ninjas.p.rapidapi.com/v1/thesaurus"
+
+    querystring = {"word": search}
+
+    headers = {
+        "X-RapidAPI-Key": "5eedf61a07mshe1107211ee7abd9p1f2468jsn27a6a95e8d4f",
+        "X-RapidAPI-Host": "thesaurus-by-api-ninjas.p.rapidapi.com"
+    }
+
+    response = requests.request(
+        "GET", url, headers=headers, params=querystring)
+
+    return response.json()
+
+
 def thesa(search):
 
     url = "https://thesaurus-by-api-ninjas.p.rapidapi.com/v1/thesaurus"

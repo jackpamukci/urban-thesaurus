@@ -3,13 +3,23 @@ import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 const Definition = () => {
+
+
+
+
+
   return (
     <SafeAreaView style={styles.container}>
         {/* Term */}
       <Text style={styles.term}>In the Lavender haze</Text>
 
       {/* Definition */}
-      <Text style={styles.def}> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. </Text>
+      <Text style={styles.def}> Lorem Ipsum is simply dummy text of the printing and typesetting industry. </Text>
+
+      {/* Example */}
+      <Text style={styles.example}>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</Text>
+
+      {/* Author and Date */}
       <View style={styles.extras}>
         <Text style={{}}>defined by: <Text style={{fontWeight: 'bold'}}>Big Dick Brian</Text></Text>
         <Text style={{fontWeight: 'bold'}}>Aug 9, 2009</Text>
@@ -46,5 +56,13 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       justifyContent: 'space-between',
       marginTop: 13
+    },
+
+    example: {
+      fontSize: 16,
+      marginTop: 18,
+      fontFamily: 'Lora',
+      fontStyle: 'italic',
+      marginBottom: 15
     }
 })
