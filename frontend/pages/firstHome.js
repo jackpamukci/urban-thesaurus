@@ -3,15 +3,33 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Button, Image, SafeAreaView, TextInput } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Second from './Second';
+import axios from 'axios';
 
   
-  const Home = () => {
+  const Home = ({ navigation }) => {
 
     const [newWord, setNewWord] = useState('')
-    const navigation = useNavigation();
+    // const navigation = useNavigation();
 
     const searchWord = (enteredWord) => {
       setNewWord(enteredWord)
+    }
+
+
+    const getInfo = () => {
+      const url = 'https://urbanthesaurusapi.herokuapp.com/homepage/' + newWord
+      axios.get(url)
+      .then(function (response) {
+        console.log(response.data)        
+        navigation.navigate("Second",
+            {
+              'thesaurus': response.data.thesaurus,
+              'definitions': response.data.urbdefinition
+            });
+      })
+      .catch(function (error){
+        console.log(error)
+      })
     }
   
     
@@ -35,7 +53,8 @@ import Second from './Second';
           clearButtonMode='always'
           onChangeText={searchWord}
           value={newWord}
-          onSubmitEditing={() => navigation.navigate("Second")}>
+          onSubmitEditing={() => getInfo()
+          }>
           
           </TextInput>
 

@@ -12,7 +12,7 @@ export default function SearchBar(props) {
 
       <LinearGradient 
       style={styles.container} 
-      colors={['#ff335f', '#335cff']}
+      colors={['#410c87', '#b51238']}
       start={{ x: 0, y: 1 }}
       end={{ x: 1, y: 1 }}>
 
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
       height: '65%',
       width: '72%',
       margin: 12,
-      backgroundColor: '#c48fdb',
+      backgroundColor: '#8f839c',
       // color: 'white',
       borderRadius: 7,
       // borderWidth: 1,

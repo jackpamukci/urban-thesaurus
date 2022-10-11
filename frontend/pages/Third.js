@@ -8,45 +8,60 @@ import AppLoading from 'expo-app-loading';
 import SearchBar from '../components/SearchBar';
 import { useState } from 'react'
 
-import { Dimensions } from 'react-native';
 
+const Third = ({route, navigation}) => {
 
-const Third = () => {
 
     const [searchText, setSearchText] = useState('');
+
+    const defs = route.params['list'];
 
     const [fontsLoaded] = useFonts({
         'Lora': require('../assets/fonts/Lora-VariableFont_wght.ttf'),
         'SourceSans': require('../assets/fonts/SourceSansPro-Black.ttf'),
       });
 
-    
+
+      
+      const renderItem = ({item}) => {
+
+        // var b = item.written_on.split(/\D+/);
+        let b = new Date(item.written_on.substring(0, 10));
+
+        b = b.toUTCString().substring(5, 16)
+        
+
+        return (
+          <Definition 
+                  word={item.word}
+                  definition={item.definition.replace(/[\[\]']+/g, '')}
+                  example={item.example.replace(/[\[\]']+/g, '')}
+                  author={item.author}
+                  written_on={b}/>
+        );
+      }
+
       if (!fontsLoaded) {
         return (
             <AppLoading />
         )
       } else {
 
-
-
         return (
           <SafeAreaView style={styles.container}>
 
               <View style={styles.search}>
               <SearchBar searchText={searchText} setSearchText={setSearchText}/>
-              {/* <Text>{searchText}</Text> */}
               </View>
             
 
               
-              <ScrollView>
-
-              <Definition />
-              <Definition />
-              <Definition />
-              <Definition />
-              </ScrollView>
-              
+              <FlatList
+                data={defs}
+                renderItem={
+                  renderItem
+                }
+              />
           
           </SafeAreaView>
       
