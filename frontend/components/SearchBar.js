@@ -30,7 +30,7 @@ export default function SearchBar(props) {
 
       <View style={styles.imageView}>
         <Image 
-        source={require('../assets/urbanthesaurus.png')}
+        source={require('../assets/urbanthesaurus-modified.png')}
         style={styles.imageDesign}/>
       </View>
       </LinearGradient>
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     
     imageView: {
       flex: 1,
-      marginRight: 10,
+      marginRight: 15,
       // width: 50,
       // height: 50,
       alignItems: 'center'
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     },
     
     imageDesign: {
-      marginTop: 10,
+      marginTop: 8,
       width: 53,
       height: 53,
       // flex: 1

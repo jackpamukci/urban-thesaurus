@@ -1,9 +1,12 @@
 import React, {useState} from 'react';
-import { StatusBar } from 'expo-status-bar';
+import { SearchBar } from 'react-native-elements';
 import { StyleSheet, Text, View, Button, Image, SafeAreaView, TextInput } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Second from './Second';
 import axios from 'axios';
+import { useFonts } from 'expo-font';
+import MaterialIcons  from 'react-native-vector-icons/MaterialIcons';
+
 
   
   const Home = ({ navigation }) => {
@@ -14,6 +17,12 @@ import axios from 'axios';
     const searchWord = (enteredWord) => {
       setNewWord(enteredWord)
     }
+
+    const [fontsLoaded] = useFonts({
+      'Lora': require('../assets/fonts/Lora-VariableFont_wght.ttf'),
+      'SourceSans': require('../assets/fonts/SourceSansPro-Black.ttf'),
+    });
+
 
 
     const getInfo = () => {
@@ -38,29 +47,39 @@ import axios from 'axios';
       
       <View style={styles.logodiv}>
       <Image 
-      source={require('../assets/urbanthesaurus.png')}
+      source={require('../assets/urbanthesaurus-modified.png')}
       style={styles.imageDesign}
       />
       </View>
 
+      <View style={styles.urba}>
+        <Text style={{color:'white', fontSize: 25, fontWeight: 'bold', fontFamily: 'serif', fontStyle: 'italic'}}>Urban Thesaurus</Text>
+      </View>
 
-      <View style={{flex: 0.75, backgroundColor: 'pink', justifyContent: 'center', alignItems: 'center'}}>
-          <TextInput
+
+      <View style={{flex: 0.75, marginTop: 50}}>
+
+          {/* <TextInput
           style={styles.searchbox}
-          placeholder='search a word'
-          placeholderTextColor={'rgba(0, 0, 0, 0.5)'}
+          placeholder='Search'
+          placeholderTextColor={'rgba(255, 255, 255, 0.3)'}
           textAlign="center"
           clearButtonMode='always'
           onChangeText={searchWord}
           value={newWord}
           onSubmitEditing={() => getInfo()
-          }>
+          }/> */}
+          <SearchBar 
+              style={{width: 100}}
+              placeholder='Search'
+              placeholderTextColor={'rgba(255, 255, 255, 0.3)'}
+              textAlign="left"
+              clearButtonMode='always'
+              onChangeText={searchWord}
+              value={newWord}
+              onSubmitEditing={() => getInfo()
+                    }/>
           
-          </TextInput>
-
-        <View>
-          <Text>{newWord}</Text>
-        </View>
 
 
       </View>
@@ -76,17 +95,20 @@ import axios from 'axios';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: '#313447',
   },
 
   searchbox: {
-    width: '80%',
-    height: 50,
-    // borderWidth: 5,
-    borderRadius: 5,
-    backgroundColor: '#b399c9',
-    marginBottom: 300,
-    fontSize: 25
+    width: '90%',
+    // height: 45,
+    // // borderWidth: 5,
+    // marginLeft: '5%',
+    // borderRadius: 5,
+    // backgroundColor: '#1b1b24',
+    // marginTop: 50,
+    // marginBottom: 400,
+    // fontSize: 25,
+    // color: 'white'
   },
 
   logodiv: {
@@ -95,15 +117,27 @@ const styles = StyleSheet.create({
     alignItems: 'center', 
     // backgroundColor: '',
     width: '70%',
-    marginLeft: '15%'
+    marginLeft: '5%',
+    zIndex: 5
   },
 
   imageDesign : {
     resizeMode: 'center',
     // width: '80%',
-    height: '100%',
+    height: '62%',
     alignContent: 'center',
-    backgroundColor: '#f2d177',
+    marginTop: 220,
+    marginRight: '80%',
+    zIndex: 5
+  },
+  urba: {
+    alignItems: 'center',
+    marginTop: '10%',
+    backgroundColor: 'red'
+  },
+  searchIcon: {
+    marginLeft: '10%',
+    marginTop: 100
   }
 });
 
