@@ -45,14 +45,11 @@ import MaterialIcons  from 'react-native-vector-icons/MaterialIcons';
   return (
     <SafeAreaView style={styles.container}>
       
-      <View style={styles.logodiv}>
-      <Image 
+      <View style={styles.urba}>
+        <Image 
       source={require('../assets/urbanthesaurus-modified.png')}
       style={styles.imageDesign}
       />
-      </View>
-
-      <View style={styles.urba}>
         <Text style={{color:'white', fontSize: 25, fontWeight: 'bold', fontFamily: 'serif', fontStyle: 'italic'}}>Urban Thesaurus</Text>
       </View>
 
@@ -100,40 +97,22 @@ const styles = StyleSheet.create({
 
   searchbox: {
     width: '90%',
-    // height: 45,
-    // // borderWidth: 5,
-    // marginLeft: '5%',
-    // borderRadius: 5,
-    // backgroundColor: '#1b1b24',
-    // marginTop: 50,
-    // marginBottom: 400,
-    // fontSize: 25,
-    // color: 'white'
-  },
-
-  logodiv: {
-    flex: 0.15, 
-    justifyContent: 'center', 
-    alignItems: 'center', 
-    // backgroundColor: '',
-    width: '70%',
-    marginLeft: '5%',
-    zIndex: 5
+    
   },
 
   imageDesign : {
-    resizeMode: 'center',
-    // width: '80%',
-    height: '62%',
-    alignContent: 'center',
-    marginTop: 220,
-    marginRight: '80%',
-    zIndex: 5
+    flex: 1,
+    maxHeight: 60,
+    maxWidth: 60,
+    marginLeft: '8%'
   },
   urba: {
     alignItems: 'center',
-    marginTop: '10%',
-    backgroundColor: 'red'
+    marginTop: '30%',
+    backgroundColor: 'red',
+    flexDirection: 'row',
+    height: 50
+
   },
   searchIcon: {
     marginLeft: '10%',
