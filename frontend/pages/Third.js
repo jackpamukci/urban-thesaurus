@@ -14,7 +14,7 @@ const Third = ({route, navigation}) => {
 
     const [searchText, setSearchText] = useState('');
 
-    const defs = route.params['list'];
+    const defs = route.params;
 
     const [fontsLoaded] = useFonts({
         'Lora': require('../assets/fonts/Lora-VariableFont_wght.ttf'),

@@ -1,9 +1,36 @@
-import { View, Text, TextInput, StyleSheet, Image } from 'react-native'
+import { View, Text, TextInput, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import MaterialIcons  from 'react-native-vector-icons/MaterialIcons';
-import React from 'react'
+import React, {useState} from 'react'
 import { LinearGradient } from 'expo-linear-gradient';
+import axios from 'axios';
+import { useNavigation } from '@react-navigation/native';
 
-export default function SearchBar(props) {
+export default function SearchBar() {
+  
+  const [newWord, setNewWord] = useState('')
+
+  const searchWord = (enteredWord) => {
+    setNewWord(enteredWord)
+  }
+
+  const navigation = useNavigation();
+
+  const getInfo = () => {
+    const url = 'https://urbanthesaurusapi.herokuapp.com/homepage/' + newWord
+    axios.get(url)
+    .then(function (response) {
+      console.log(response.data) 
+      console.log(newWord)       
+      navigation.push("Second",
+          {
+            'thesaurus': response.data.thesaurus,
+            'definitions': response.data.urbdefinition
+          });
+    })
+    .catch(function (error){
+      console.log(error)
+    })
+  }
 
 
 
@@ -16,6 +43,15 @@ export default function SearchBar(props) {
       start={{ x: 0, y: 1 }}
       end={{ x: 1, y: 1 }}>
 
+      <View style={styles.backButtonView}>
+        <TouchableOpacity style={{flex: 1}}>
+        {/* <Text>piss</Text> */}
+        <MaterialIcons 
+        onPress={()=>navigation.goBack()}
+        style={styles.backButton} name="arrow-back-ios" size={30} color="rgba(255, 255, 255, 0.3)"/> 
+        </TouchableOpacity>
+      </View>
+
       <View style={styles.searchSection}>
         <MaterialIcons style={styles.searchIcon} name="search" size={20} color="rgba(255, 255, 255, 0.3)"/> 
 
@@ -23,8 +59,9 @@ export default function SearchBar(props) {
         placeholder='Type any word...'
         placeholderTextColor={'rgba(255, 255, 255, 0.3)'}
         style={styles.input}
-        value={props.searchText}
-        onChangeText={(text)=>props.setSearchText(text)}/>
+        onChangeText={searchWord}
+        value={newWord}
+        onSubmitEditing={()=>getInfo()}/>
 
       </View>
 
@@ -78,13 +115,29 @@ const styles = StyleSheet.create({
         // backgroundColor: 'red'
     },
 
+    backButtonView: {
+      backgroundColor: '#8f839c',
+      borderRadius: 100,
+      width: '12%',
+      height: '65%',
+      marginTop: 12,
+      marginLeft: 5
+      
+    },
+
+    backButton: {
+      flex: 1,
+      marginLeft: 13,
+      marginTop: 7
+    },
+
     searchIcon: {
 
     },
 
     searchSection: {
       height: '65%',
-      width: '72%',
+      width: '65%',
       margin: 12,
       backgroundColor: '#8f839c',
       // color: 'white',

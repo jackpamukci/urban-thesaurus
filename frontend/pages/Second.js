@@ -5,6 +5,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import MaterialIcons  from 'react-native-vector-icons/MaterialIcons';
 import AppLoading from 'expo-app-loading';
 import axios from 'axios';
+import Definition from '../components/Definition';
 
 
 const listTab = [
@@ -26,13 +27,13 @@ const listTab = [
 
 const Second = ({route, navigation}) => {
 
-const [dataRecieved, setDataRecieved] = useState(false)
+const [isThesaurus, setThesaurus] = useState(true)
 
-const { thesaurus, urbandefinitions } = route.params;
+const { thesaurus, definitions } = route.params;
 
 const data = {
   'thesaurus': thesaurus,
-  'urbdefinition': urbandefinitions
+  'urbdefinition': definitions
 }
 
 const getDefs = (term) => {
@@ -43,18 +44,13 @@ const getDefs = (term) => {
     navigation.navigate("Third", response.data);
   })
             
-    // navigation.navigate("Second",
-    //     {
-    //       'thesaurus': response.data.thesaurus,
-    //       'definitions': response.data.urbdefinition
-    //     });
 
   .catch(function (error){
     console.log(error)
   })
 }
 
-const renderItem = ({item, index}) => {
+const renderThes = ({item, index}) => {
 
   if (false) {
     return (
@@ -67,7 +63,7 @@ const renderItem = ({item, index}) => {
       <TouchableOpacity 
       style={styles.itemContainer}
       onPress={() => getDefs({item})}>
-      <MaterialIcons style={styles.searchIcon} name="brightness-1" size={13} color="green"/> 
+      <MaterialIcons style={styles.searchIcon} name="brightness-1" size={9} color="green"/> 
       <View style={styles.itemBody}>
         <Text style={styles.itemName}>{item}</Text>
       </View>
@@ -80,27 +76,65 @@ const renderItem = ({item, index}) => {
     }
 }
 
+const renderDef = ({item}) => {
+
+  // var b = item.written_on.split(/\D+/);
+  let b = new Date(item.written_on.substring(0, 10));
+
+  b = b.toUTCString().substring(5, 16)
+  
+
+  return (
+    <Definition 
+            word={item.word}
+            definition={item.definition.replace(/[\[\]']+/g, '')}
+            example={item.example.replace(/[\[\]']+/g, '')}
+            author={item.author}
+            written_on={b}/>
+  );
+}
+
+
   const [status, setStatus] = useState('synonyms')
   const [dataList, setDataList] = useState(data['thesaurus'][status]);
 
+  let synonyms = data['thesaurus']['synonyms']
+  let antonyms = data['thesaurus']['antonyms']
+  let urbans = Array.from(data['urbdefinition'])
 
-  const setStatusFilter = status => {
-    if (status == 'synonyms') {
-      setDataList(data['thesaurus']['synonyms'])
+  const setStatusFilter = stato => {
+    
+    if (stato == 'synonyms') {
+      setDataList(synonyms)
+      console.log(dataList)
+      setThesaurus(true)
+      // setDataType('thesaurus')
     }
-    else if (status == 'antonyms') {
-      setDataList(data['thesaurus']['antonyms'])
+    else if (stato == 'antonyms') {
+      setDataList(antonyms)
+      console.log(dataList)
+      setThesaurus(true)
+      // setDataType('thesaurus')
     }
-    console.log(status)
-    console.log(dataList)
-    setStatus(status)
+    else{
+      setDataList(urbans)
+      setThesaurus(false)
+      
+    }
+    
+    setStatus(stato)
+    console.log(stato)
+    console.log(isThesaurus)
+    
+    
   }
 
 
   return (
     <SafeAreaView style={styles.container}>
 
-      <SearchBar/>
+      <SearchBar
+      />
 
       {/* <Tab Bar/> */}
       <View style={styles.listTab}>
@@ -115,13 +149,20 @@ const renderItem = ({item, index}) => {
       }
       </View>
 
+
       <View style={styles.listo}>
+        {isThesaurus ? 
       <FlatList
       data={dataList}
       keyExtractor={(e, i) => i.toString()}
-      renderItem={renderItem}/>
-
+      renderItem={renderThes}/>
+        : <FlatList
+        data={dataList}
+        renderItem={renderDef}
+      />}
+      
       </View>
+      
     </SafeAreaView>
   )
 }
@@ -183,8 +224,8 @@ const styles = StyleSheet.create({
     flex: 1
   },
   searchIcon: {
-    marginTop: 19,
-    marginLeft: 9,
+    marginTop: 21,
+    marginLeft: 12,
     marginRight: 10
   }
 })
